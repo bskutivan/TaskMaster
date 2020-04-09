@@ -46,32 +46,6 @@ var saveTasks = function() {
 };
 
 $(".list-group").on("click", "p", function(){
-  $(".list-group").on("blur", "textarea", function(){
-    //get the textarea's current value/text
-    var text = $(this)
-      .val()
-      .trim();
-    
-    // get the parent ul's id attribute
-    var status = $(this)
-      .closest(".list-group")
-      .attr("id")
-      .replace("list-", "");
-
-    // get the task's positio in the list of other li elements
-    var index = $(this)
-      .closest(".list-group-item")
-      .index();
-    
-    tasks[status][index].text = text;
-    saveTasks();
-    //recreate p element
-    var taskP = $("<p>")
-      .addClass("m-1")
-      .text(text);
-    //repleace textarea with p element
-    $(this).replaceWith(taskP);
-  })
   var text = $(this)
   .text()
   .trim();
@@ -81,6 +55,33 @@ $(".list-group").on("click", "p", function(){
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
 })
+
+$(".list-group").on("blur", "textarea", function(){
+  //get the textarea's current value/text
+  var text = $(this)
+    .val()
+    .trim();
+  
+  // get the parent ul's id attribute
+  var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "");
+
+  // get the task's positio in the list of other li elements
+  var index = $(this)
+    .closest(".list-group-item")
+    .index();
+  
+  tasks[status][index].text = text;
+  saveTasks();
+  //recreate p element
+  var taskP = $("<p>")
+    .addClass("m-1")
+    .text(text);
+  //repleace textarea with p element
+  $(this).replaceWith(taskP);
+});
 
 // due date was clicked
 $(".list-group").on("click", "span", function() {
